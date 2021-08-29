@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>夹子模拟器</title>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="./weui.min.css" />
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content {
+            flex: 1;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        <article class="weui-article" >
+            <div class="weui-panel weui-panel_access">
+                <div class="weui-panel__bd">
+                    <div class="weui-progress">
+                        进度 : {{Progress}}/10
+                        <div class="weui-progress__bar">
+                            <div class="weui-progress__inner-bar js_progress" v-bind:style="{width: (Progress * 10)+'%'}"></div>
+                        </div>
+                    </div>
+                    <div class="weui-progress">
+                        得分 : {{Score}}/100
+                        <div class="weui-progress__bar">
+                            <div class="weui-progress__inner-bar js_progress" v-bind:style="{width: (Score)+'%'}"></div>
+                        </div>
+                    </div>
+                    <!-- <div>現金: {{Money}}</div> -->
+                </div>
+            </div>
+            <section style="margin: 5%;">
+                    <div v-if = "Special != ''">
+                        <div v-html="Special"></div>
+                    </div>
+                    <p v-for="M in Message">
+                        {{ M }}
+                    </p>
+            </section>
+        </article>
+        <div style="margin: 3%">
+            <a v-for="(selection,index) in Selections" class="weui-btn weui-btn_plain-default" v-on:click="on_click_button(index)">{{ selection }}</a>
+
+        </div>
+        <div id="GameOverDialog" style="display: none;">
+            <div class="weui-mask"></div>
+            <div class="weui-dialog">
+                <div class="weui-dialog__hd"><strong class="weui-dialog__title">说明</strong></div>
+                <div class="weui-dialog__bd">{{ DialogMessage }}</div>
+                <div class="weui-dialog__ft">
+                    <a onclick="location.reload();" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+<script src="./textdb.js"></script>
+<script src="./gameevents.js"></script>
+<script src="./gameengine.js"></script>
+
+</html>
